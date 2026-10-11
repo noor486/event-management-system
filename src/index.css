@@ -103,3 +103,26 @@ input:focus, select:focus { border-color: var(--info); outline: none; }
 .filter-actions { display: flex; gap: 0.5rem; align-items: end; }
 .results-count { margin: 0 0 0.75rem; }
 .pagination { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 2rem; }
+
+
+
+/* Event details page */
+.back { display: inline-block; margin-bottom: 1rem; }
+.hero { width: 100%; max-height: 420px; object-fit: cover; border-radius: var(--radius); margin-bottom: 1.5rem; }
+.details-grid { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; align-items: start; }
+.facts { display: grid; gap: 0.75rem; margin: 1rem 0; }
+.facts dt { font-size: 0.85rem; color: var(--muted); font-weight: 700; }
+.facts dd { margin: 0; font-size: 1.05rem; }
+.status { text-transform: capitalize; }
+.seatmap { border-radius: 10px; border: 1px solid var(--line); }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; position: sticky; top: 84px; }
+.panel h2 { margin-top: 0; }
+.ok { color: var(--ok); font-weight: 700; }
+.chips-static { margin-bottom: 0.6rem; }
+.tag-plain { position: static; display: inline-block; margin-right: 0.4rem; }
+
+@media (max-width: 800px) {
+  .details-grid { grid-template-columns: 1fr; }
+  .panel { position: static; }
+  .nav-links { order: 3; flex-basis: 100%; }
+}
