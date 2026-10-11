@@ -5,7 +5,8 @@ import { GuestRoute } from './components/RouteGuards';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
-   import Events from './pages/Events';
+import Events from './pages/Events';
+import EventDetails from './pages/EventDetails';
 
 // The parts that stay on every page: top bar and pop-up message.
 function Layout() {
@@ -36,6 +37,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Navigate to="/events" replace />} />
         <Route path="/events" element={<Events />} />
+        <Route path="/events/:id" element={<EventDetails />} />
         <Route element={<GuestRoute />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
