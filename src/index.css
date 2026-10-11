@@ -63,3 +63,30 @@ input:focus, select:focus { border-color: var(--info); outline: none; }
 .auth-card { max-width: 420px; margin: 2rem auto; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.75rem; }
 .field-error, .form-error { color: var(--accent-dark); font-size: 0.9rem; }
 .form-error { background: #fdecef; padding: 0.5rem 0.75rem; border-radius: 8px; }
+
+
+/* Event cards styled like a ticket */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.25rem; }
+.ticket { background: var(--card); border-radius: var(--radius); box-shadow: 0 2px 10px rgba(24, 26, 47, 0.08); display: flex; flex-direction: column; }
+.ticket-image { position: relative; display: block; aspect-ratio: 16 / 9; background: #dfe3ee; border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; }
+.ticket-image img { width: 100%; height: 100%; object-fit: cover; }
+.image-fallback { height: 100%; display: grid; place-items: center; color: var(--muted); }
+.ticket-divider { position: relative; border-top: 2px dashed var(--line); }
+.ticket-divider::before, .ticket-divider::after { content: ''; position: absolute; top: -11px; width: 20px; height: 20px; border-radius: 50%; background: var(--paper); }
+.ticket-divider::before { left: -10px; }
+.ticket-divider::after { right: -10px; }
+.ticket-body { padding: 1rem 1.1rem 1.1rem; display: flex; flex-direction: column; flex: 1; }
+.ticket-body h3 a { color: var(--ink); text-decoration: none; }
+.ticket-body h3 a:hover { text-decoration: underline; }
+.meta { margin: 0.1rem 0; font-size: 0.95rem; }
+.ticket-actions { margin-top: auto; padding-top: 0.8rem; }
+.tag { position: absolute; top: 0.6rem; left: 0.6rem; background: var(--ink); color: #fff; font-size: 0.8rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 999px; }
+.tag-ok { left: auto; right: 0.6rem; background: var(--ok); }
+
+/* Loading, errors and empty messages */
+.loader { display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 3rem 0; color: var(--muted); }
+.spinner { width: 22px; height: 22px; border: 3px solid var(--line); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.error-box, .empty { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem; text-align: center; }
+.error-box { border-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
