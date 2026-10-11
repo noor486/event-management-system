@@ -90,3 +90,16 @@ input:focus, select:focus { border-color: var(--info); outline: none; }
 .error-box, .empty { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem; text-align: center; }
 .error-box { border-color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 3s; } }
+
+
+
+/* Search, filters, category buttons and paging */
+.chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+.chip { font: inherit; border: 2px solid var(--line); background: var(--card); border-radius: 999px; padding: 0.3rem 0.9rem; cursor: pointer; }
+.chip-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.8rem; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem; margin-bottom: 1.5rem; }
+.filters .field { margin-bottom: 0; }
+.field-wide { grid-column: 1 / -1; }
+.filter-actions { display: flex; gap: 0.5rem; align-items: end; }
+.results-count { margin: 0 0 0.75rem; }
+.pagination { display: flex; justify-content: center; align-items: center; gap: 1rem; margin-top: 2rem; }
