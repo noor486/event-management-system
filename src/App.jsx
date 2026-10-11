@@ -1,6 +1,9 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Toast from './components/Toast';
+import { GuestRoute } from './components/RouteGuards';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 
 // The parts that stay on every page: top bar and pop-up message.
@@ -32,6 +35,10 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Navigate to="/events" replace />} />
         <Route path="/events" element={<EventsPlaceholder />} />
+        <Route element={<GuestRoute />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
