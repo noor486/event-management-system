@@ -2,10 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/authSlice';
 import uiReducer from '../features/ui/uiSlice';
 import { loadState, saveAuth } from '../utils/storage';
+import eventsReducer from '../features/events/eventsSlice';
+
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    events: eventsReducer,
     ui: uiReducer,
   },
   preloadedState: loadState(), // restores login after a refresh
