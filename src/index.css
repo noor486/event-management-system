@@ -126,3 +126,9 @@ input:focus, select:focus { border-color: var(--info); outline: none; }
   .panel { position: static; }
   .nav-links { order: 3; flex-basis: 100%; }
 }
+
+
+
+/* Red outline button, used for cancel */
+.btn-danger { background: #fff; color: var(--accent-dark); border-color: var(--accent); }
+.btn-danger:hover { background: #fdecef; }
