@@ -132,3 +132,11 @@ input:focus, select:focus { border-color: var(--info); outline: none; }
 /* Red outline button, used for cancel */
 .btn-danger { background: #fff; color: var(--accent-dark); border-color: var(--accent); }
 .btn-danger:hover { background: #fdecef; }
+
+
+
+/* My Events tabs and the registration count in the top bar */
+.tabs { display: flex; gap: 0.5rem; border-bottom: 2px solid var(--line); margin-bottom: 1.5rem; }
+.tab { font: inherit; font-weight: 700; background: none; border: 0; padding: 0.6rem 1rem; cursor: pointer; color: var(--muted); border-bottom: 3px solid transparent; margin-bottom: -2px; }
+.tab-on { color: var(--ink); border-color: var(--accent); }
+.count { background: var(--accent); color: #fff; border-radius: 999px; font-size: 0.75rem; padding: 0 0.45rem; margin-left: 0.4rem; }
