@@ -3,12 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { ErrorMessage, Loader } from '../components/Feedback';
 import { clearCurrentEvent, fetchEventById } from '../features/events/eventsSlice';
-import { formatEventDate, formatPrice } from '../utils/format';
+import {
+  cancelRegistration,
+  registerForEvent,
+  selectMyRegistrations,
+} from '../features/registrations/registrationsSlice';
+import { formatEventDate, formatPrice, isPastEvent } from '../utils/format';
 
 export default function EventDetails() {
   const { id } = useParams(); // the :id from the web address
   const dispatch = useDispatch();
   const { current: event, currentStatus, currentError } = useSelector((state) => state.events);
+  const user = useSelector((state) => state.auth.user);
+  const registrations = useSelector(selectMyRegistrations);
 
   // Load this event when the page opens. Clear it when leaving, so an old event never flashes.
   useEffect(() => {
@@ -26,8 +33,15 @@ export default function EventDetails() {
     );
   }
 
+  const registered = registrations.some((r) => r.id === event.id);
+  const past = isPastEvent(event);
+  const cancelled = ['cancelled', 'canceled'].includes(event.status);
   const location = [event.address, event.city, event.state, event.country].filter(Boolean).join(', ');
   const categories = [event.category, event.genre, event.subGenre].filter(Boolean);
+
+  const handleCancel = () => {
+    if (window.confirm('Cancel your registration for this event?')) dispatch(cancelRegistration(event));
+  };
 
   return (
     <article className="details">
@@ -54,11 +68,39 @@ export default function EventDetails() {
         </div>
 
         <aside className="panel">
-          <h2>Tickets</h2>
-          {event.url ? (
-            <a className="btn btn-primary btn-block" href={event.url} target="_blank" rel="noreferrer">Buy tickets on Ticketmaster</a>
-          ) : (
-            <p className="muted">No ticket link is available for this event.</p>
+          <h2>Register</h2>
+          {past && <p className="muted">This event has already taken place.</p>}
+          {!past && cancelled && <p className="muted">This event was cancelled, so registration is closed.</p>}
+
+          {/* Not logged in: send them to log in, and bring them back here afterwards. */}
+          {!past && !cancelled && !user && (
+            <>
+              <p className="muted">Log in to register for this event.</p>
+              <Link className="btn btn-primary btn-block" to="/login" state={{ from: `/events/${event.id}` }}>
+                Log in to register
+              </Link>
+            </>
+          )}
+
+          {/* Logged in but not registered yet. */}
+          {!past && !cancelled && user && !registered && (
+            <button className="btn btn-primary btn-block" onClick={() => dispatch(registerForEvent(event))}>
+              Register for this event
+            </button>
+          )}
+
+          {/* Already registered: show a confirmation and the cancel button. */}
+          {user && registered && (
+            <>
+              <p className="ok">✓ You are registered.</p>
+              {!past && <button className="btn btn-danger btn-block" onClick={handleCancel}>Cancel registration</button>}
+            </>
+          )}
+
+          {event.url && (
+            <a className="btn btn-ghost btn-block" href={event.url} target="_blank" rel="noreferrer">
+              Buy tickets on Ticketmaster
+            </a>
           )}
         </aside>
       </div>

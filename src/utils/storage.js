@@ -2,6 +2,7 @@
 const KEYS = {
   users: 'stubly_users',
   session: 'stubly_session',
+  registrations: 'stubly_registrations',
 };
 
 function read(key, fallback) {
@@ -21,14 +22,19 @@ function write(key, value) {
   }
 }
 
-// Used when the app starts: bring back saved accounts and the logged-in user.
+// Used when the app starts: bring back saved accounts, the logged-in user and registrations.
 export function loadState() {
   return {
     auth: { users: read(KEYS.users, []), user: read(KEYS.session, null), error: null },
+    registrations: { byUser: read(KEYS.registrations, {}) },
   };
 }
 
 export function saveAuth({ users, user }) {
   write(KEYS.users, users);
   write(KEYS.session, user);
+}
+
+export function saveRegistrations({ byUser }) {
+  write(KEYS.registrations, byUser);
 }

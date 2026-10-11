@@ -4,6 +4,7 @@ import EventCard from '../components/EventCard';
 import Pagination from '../components/Pagination';
 import SearchFilters from '../components/SearchFilters';
 import { EmptyState, ErrorMessage, Loader } from '../components/Feedback';
+import { selectMyRegistrations } from '../features/registrations/registrationsSlice';
 import {
   fetchCategories,
   fetchEvents,
@@ -17,6 +18,7 @@ export default function Events() {
   const { list, status, error, filters, pageNumber, totalPages, totalElements, categories } = useSelector(
     (state) => state.events
   );
+  const registrations = useSelector(selectMyRegistrations);
 
   // Load the category list once.
   useEffect(() => {
@@ -80,7 +82,7 @@ export default function Events() {
           <p className="muted results-count">{totalElements.toLocaleString()} events found</p>
           <div className="grid">
             {list.map((event) => (
-              <EventCard key={event.id} event={event} />
+              <EventCard key={event.id} event={event} registered={registrations.some((r) => r.id === event.id)} />
             ))}
           </div>
           <Pagination pageNumber={pageNumber} totalPages={totalPages} onChange={goToPage} />
