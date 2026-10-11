@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { logoutUser } from '../features/auth/authSlice';
+import { selectMyRegistrations } from '../features/registrations/registrationsSlice';
 import { showToast } from '../features/ui/uiSlice';
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
+  const count = useSelector(selectMyRegistrations).length;
 
   const handleLogout = () => {
     dispatch(logoutUser());
@@ -20,6 +22,11 @@ export default function Navbar() {
         <Link to="/events" className="brand">Stubly</Link>
         <nav className="nav-links" aria-label="Main">
           <NavLink to="/events">Events</NavLink>
+          {user && (
+            <NavLink to="/my-events">
+              My Events{count > 0 && <span className="count">{count}</span>}
+            </NavLink>
+          )}
         </nav>
         <div className="nav-user">
           {user ? (

@@ -1,12 +1,13 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Toast from './components/Toast';
-import { GuestRoute } from './components/RouteGuards';
-import Login from './pages/Login';
-import Register from './pages/Register';
-import NotFound from './pages/NotFound';
+import { GuestRoute, ProtectedRoute } from './components/RouteGuards';
 import Events from './pages/Events';
 import EventDetails from './pages/EventDetails';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import MyEvents from './pages/MyEvents';
+import NotFound from './pages/NotFound';
 
 // The parts that stay on every page: top bar and pop-up message.
 function Layout() {
@@ -21,16 +22,6 @@ function Layout() {
   );
 }
 
-// Temporary page. We replace it with the real Events page later.
-function EventsPlaceholder() {
-  return (
-    <section>
-      <h1>Events</h1>
-      <p className="muted">Events will appear here soon.</p>
-    </section>
-  );
-}
-
 export default function App() {
   return (
     <Routes>
@@ -41,6 +32,9 @@ export default function App() {
         <Route element={<GuestRoute />}>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/my-events" element={<MyEvents />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Route>
